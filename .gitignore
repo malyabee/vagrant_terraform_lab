@@ -1,0 +1,5 @@
+.vagrant
+lab/.DS_Store
+lab/.terraform
+lab/terraform.tfstate*
+lab/compute/.terraform

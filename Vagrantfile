@@ -23,8 +23,8 @@ Vagrant.configure("2") do |config|
         
          # Memory and CPU allocation
          terraform_lab.vm.provider "virtualbox" do |v|
-            v.memory = 2048
-            v.cpus = 2
+            v.memory = 1024
+            v.cpus = 1
          end
         
          # Host name allocation

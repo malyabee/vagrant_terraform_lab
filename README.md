@@ -7,3 +7,4 @@ Ref :
 
 Terraform code samples associated with above book 
 https://github.com/brikis98/terraform-up-and-running-code
+https://github.com/mjuenema/Terraform-Up-and-Running-Code-Samples-Translated/

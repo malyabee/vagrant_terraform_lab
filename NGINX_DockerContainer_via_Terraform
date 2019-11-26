@@ -1,0 +1,81 @@
+Launching an NGINX Docker container via Terraform. 
+
+
+Create a terraform Config
+
+config.tf contins following lines
+   provider "docker" {
+       host = "tcp://docker:2345/"
+   }
+   resource "docker_image" "nginx" {
+       name = "nginx"
+   }
+   
+   resource "docker_container" "nginx-server" {
+        name = "nginx-server"
+        image = "${docker_image.nginx.latest}"
+        ports {
+           internal = 80
+        }
+        volumes {
+           container_path  = "/usr/share/nginx/html"
+           host_path = "/home/scrapbook/tutorial/www"
+           read_only = true
+        }
+    }
+    
+    
+### Plan Terraform actions
+      
+    terraform plan -out config.tfplan
+    
+
+### Apply Terraform Actions
+
+    terraform apply
+    
+    
+### Verifing container 
+
+     docker ps
+     
+     Terraform show
+     
+     
+###  changing config to initiate two containers for nginx 
+
+Config.tf 
+provider "docker" {
+  host = "tcp://docker:2345/"
+}
+resource "docker_image" "nginx" {
+  name = "nginx:"
+}
+resource "docker_container" "nginx-server" {
+  count = 2
+  name = "nginx-server-${count.index+1}"
+  image = "${docker_image.nginx.latest}"
+  ports {
+    internal = 80
+  }
+  volumes {
+    container_path  = "/usr/share/nginx/html"
+    host_path = "/home/scrapbook/tutorial/www"
+    read_only = true
+  }
+}
+
+
+
+### cammands to apply new changes
+
+terraform plan -out config.tfplan
+
+
+
+terraform apply
+
+
+
+    
+
